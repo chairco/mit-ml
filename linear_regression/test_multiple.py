@@ -11,7 +11,7 @@ if __name__ == "__main__":
     srcX, y = regression.loadDataSet('data/houses.txt')
 
     # 新建特征
-    m,n= srcX.shape
+    m,n = srcX.shape
     X = regression.normalize(srcX.copy())
     X = np.concatenate((np.ones((m,1)), X), axis=1)
 
@@ -20,19 +20,19 @@ if __name__ == "__main__":
     epsilon = 1
 
     result, timeConsumed = regression.bgd(rate, maxLoop, epsilon, X, y)
-    theta,errors = result
+    theta, errors, thetas = result
 
-    print 'theta is:'
-    print theta
-    print '........'
+    print('theta is:')
+    print(theta)
+    print('........')
 
     # 预测价格
     normalizedSize = (1650-srcX[:,0].mean(0))/srcX[:,0].std(0)
     normalizedBr = (3-srcX[:,1].mean(0))/srcX[:,1].std(0)
     predicateX = np.matrix([[1, normalizedSize, normalizedBr]])
     price = regression.h(theta, predicateX.T)
-    print 'Predicted price of a 1650 sq-ft, 3 br house: $%.4f'%price
-    print '........'
+    print('Predicted price of a 1650 sq-ft, 3 br house: $%.4f'%price)
+    print('........')
 
     # 打印拟合平面
     fittingFig = plt.figure(figsize=(16, 12))
